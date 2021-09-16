@@ -50,6 +50,9 @@ public class SensorMonitor implements SensorEventListener {
                 mFreq = (1.0f / ((ts - mOffset) / 1e9f / 100.0f));
                 Log.v(MainActivity.TAG(), "Processed 100 samples"+ts);
             }
+
+            // instead of creating a new Runnable everytime and posting it, you may do "sendMessage()" with a Message object reused from a global message pull
+            // when the sending/posting target is the main thread, there is an even more convenient way: runOnUiThread(), which is also applicable here
             mMainHandler.post(new Runnable() {
                 @Override
                 public void run() {
